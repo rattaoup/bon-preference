@@ -68,7 +68,7 @@ def run(args: argparse.Namespace) -> int:
     test_name = args.test_name or {
         "ultrafeedback": "ultrafeedback",
         "pku-saferlhf": "pku_saferlhf",
-        "gsm8k": "gsm8k_medium_difficulty_final",
+        "gsm8k": "gsm8k",
     }[args.source_dataset]
     out_path = PATHS.test_set(test_name)
     save_gzip(pairs, out_path)

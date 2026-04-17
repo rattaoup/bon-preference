@@ -1,9 +1,4 @@
 """Test-set construction for UltraFeedback, PKU-SafeRLHF, and GSM8K.
-
-Replaces the old ``create_test_dataset.ipynb`` notebook. Each test set
-is a gzipped JSON list of dicts with the fields consumed by
-``bon train`` when evaluating: ``prompt``, ``chosen``, ``rejected``,
-``score_chosen``, ``score_rejected``, ``score_diff``.
 """
 
 from __future__ import annotations
@@ -162,8 +157,7 @@ def _create_preference_pair_gsm8k(item: dict) -> dict | None:
     """Pair a random correct response against the highest-scoring incorrect one.
 
     Only pairs where the correct response outscores the best incorrect response
-    by at least ``+2`` in reward are kept - this produces the
-    ``medium difficulty'' GSM8K test set used in the paper.
+    by at least ``+2`` in reward are kept - this produces the GSM8K test set used in the paper.
     """
     scores = item["scores"]
     marks = item["mark"]
@@ -203,7 +197,7 @@ def build_gsm8k(
     reward_model_name: str = "skywork-v2",
     base_model: str = DEFAULT_GENERATOR_MODEL,
 ) -> List[dict]:
-    """Build the medium-difficulty GSM8K test set from pre-generated responses.
+    """Build the GSM8K test set from pre-generated responses.
 
     Assumes ``bon generate`` + ``bon score`` have already been run against the
     GSM8K test prompts under ``--name gsm8k_test_set`` with the given

@@ -1,7 +1,4 @@
 """Deterministic seeding helpers.
-
-``torch`` is imported lazily so modules that only need to parse CLI flags
-can import ``set_seed`` without incurring the ``torch`` import cost.
 """
 
 from __future__ import annotations

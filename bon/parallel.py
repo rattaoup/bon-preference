@@ -1,10 +1,4 @@
 """Generic multi-GPU job scheduler.
-
-Replaces the five near-duplicate ``scripts/launch_*.py`` files. A "job"
-is anything that can be run as a subprocess with a specific
-``CUDA_VISIBLE_DEVICES``. ``run_parallel`` dispatches jobs onto free
-GPUs, streams logs per-job, optionally skips jobs whose output already
-exists, and writes a CSV status file if requested.
 """
 
 from __future__ import annotations

@@ -1,6 +1,8 @@
 # Learning Reward Models from Best-of-N Preference Data
 
-Real-world experiments for the paper. Every experiment runs through `python -m bon <command>` from `publish_code/`.
+
+Code for experiments in the paper "Reward Learning from Best-of-N Preference Data:
+Targets, Tradeoffs, and Design Principles". Every experiment runs through `python -m bon <command>`.
 
 Three things you might want to do with this code:
 
@@ -78,7 +80,6 @@ Per knob:
 | `--reward-model`| Reward-model HF id used for scoring / calibration. Default `Skywork/Skywork-Reward-V2-Llama-3.1-8B`. |
 | `--c`, `--w`, `--p` | Reshaping parameters. See §1c.                                                           |
 
-> On the CLI the paper's *N* and the training-set size are called `--N` and `--train-size`. On-disk filenames still use the older `n_/k_` spelling (e.g. `pairs_n{train_size}_k{N}_seed{seed}.pt`) for backward compatibility with pre-generated artifacts.
 
 ### 3b. Phase flow
 
@@ -147,7 +148,7 @@ Each call scores the binary-preference split with the reward model and writes to
 | ------------------ | ---------------------------------- | ----- |
 | `ultrafeedback`    | `ultrafeedback`                    | `HuggingFaceH4/ultrafeedback_binarized` test_prefs split. |
 | `pku-saferlhf`     | `pku_saferlhf`                     | PKU-SafeRLHF test split, filtered to unambiguous `safer_response_id`. |
-| `gsm8k`            | `gsm8k_medium_difficulty_final`    | Chosen is a *correct* GSM8K response whose reward outscores the best *incorrect* response by ≥ +2 (see `_create_preference_pair_gsm8k` in [`bon/test_set.py`](bon/test_set.py)). This is the one GSM8K test set used in the paper. |
+| `gsm8k`            | `gsm8k`    | Chosen is a *correct* GSM8K response whose reward outscores the best *incorrect* response by ≥ +2 (see `_create_preference_pair_gsm8k` in [`bon/test_set.py`](bon/test_set.py)). This is the one GSM8K test set used in the paper. |
 
 ### 1c. (Optional) Distribution reshaping
 
@@ -253,7 +254,7 @@ The recipe table below maps the three reshaping experiments to the flags you nee
 | -------------- | ----------------------- | ----------------------------------- | --------------------- |
 | UltraFeedback  | `ultrafeedback-pminus`  | `ultrafeedback`                     | `ultrafeedback`       |
 | PKU-SafeRLHF   | `pku-saferlhf-pminus`   | `pku-saferlhf`                      | `pku_saferlhf`        |
-| GSM8K          | `gsm8k-pminus`          | `gsm8k`                             | `gsm8k_medium_difficulty_final` |
+| GSM8K          | `gsm8k-pminus`          | `gsm8k`                             | `gsm8k` |
 
 ---
 
@@ -310,11 +311,8 @@ Each result JSON looks like:
 }
 ```
 
-## 5. Pre-generated artifacts
 
-The full pipeline is expensive (many GPU-hours). Pre-generated intermediates (`data/requirements/`, `data/llm_responses/`, `data/test_set/`) will be released in a companion drop; drop them into the layout above and skip straight to `python -m bon sweep` and/or `python -m bon connectivity`. The GitHub release page will have the current URL.
-
-## 6. Troubleshooting
+## 5. Troubleshooting
 
 - **`FileNotFoundError: data/requirements/...`** — run `python -m bon plan` (or `python -m bon prepare`) for that `--name` first.
 - **`FileNotFoundError: data/test_set/...`** — run `python -m bon build-test-set --source-dataset <...>`.
@@ -323,6 +321,6 @@ The full pipeline is expensive (many GPU-hours). Pre-generated intermediates (`d
 - **Want to re-embed after changing the backbone** — pass `--force-recache` to `python -m bon train` to bust the cached `.pt` file.
 - **Calibration / rejection path mismatch** — calibration is cached under `data/calibrations/<name>/model_<base>_reward_<reward>/...`, and `python -m bon rejection` expects to find it at the same `(name, base_model, reward_model)`. Mixing `--base-model` / `--reward-model` between the two commands silently builds a fresh calibration under a different path.
 
-## 7. License
+## 6. License
 
 Released under the MIT License (see [`LICENSE`](LICENSE)).
