@@ -1,0 +1,20 @@
+# Core training and inference stack.
+# Pin to versions known to work; newer patch releases are usually fine.
+torch>=2.4,<2.7
+transformers>=4.45,<5
+datasets>=3.0,<5
+huggingface_hub>=0.25
+accelerate>=1.0
+
+# vLLM is only required for `bon prepare` / `bon generate` /
+# `bon calibrate` / `bon rejection`. Install a CUDA-capable build
+# matching your torch version.
+vllm>=0.6
+
+# Evaluation / analysis
+scikit-learn>=1.4
+numpy>=1.26,<2.3
+tqdm>=4.66
+
+# Optional experiment tracking (only needed if --use-wandb is passed)
+wandb>=0.17 ; python_version >= "3.9"

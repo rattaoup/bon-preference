@@ -205,3 +205,56 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+*.egg
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Jupyter / IPython
+.ipynb_checkpoints/
+
+# Type checkers / linters
+.mypy_cache/
+.pyre/
+.pytype/
+.ruff_cache/
+.pytest_cache/
+
+# Experiment artifacts
+data/
+llm_results/
+logs/
+trainer_output/
+wandb/
+rebuttal_results/
+
+# Large caches and generated files
+*.pt
+*.gz
+*.gzip
+*.csv
+
+# Plots
+*.pdf
+*.png
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
